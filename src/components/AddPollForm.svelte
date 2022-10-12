@@ -1,7 +1,9 @@
 <script>
+    import { fade, slide, scale } from 'svelte/transition'
     import { createEventDispatcher } from 'svelte'
     let dispatch = createEventDispatcher()
     import Button from './shared/Button.svelte'
+    import PollStore from './stores/PollStore'
     let valid = false
 
     let newPoll = {
@@ -50,7 +52,12 @@
                 voteB: 0,
             }
 
-            dispatch('addPoll', pollToSend)
+            dispatch('addPoll')
+
+            // @ts-ignore
+            PollStore.update((existingPolls) => {
+                return [pollToSend, ...existingPolls]
+            })
 
             newPoll.pollName = ''
             newPoll.optionA = ''
@@ -59,13 +66,14 @@
     }
 </script>
 
-<h1 class="text-rose-500 text-3xl mt-5 p-1 font-bold uppercase">
-    Add a new poll:
-</h1>
 <form
+    in:scale={{ duration: 250 }}
     class="flex gap-4 mt-2 justify-center flex-col"
     on:submit|preventDefault={handlePollSubmit}
 >
+    <h1 class="text-rose-500 text-3xl mt-5 p-1 font-bold uppercase">
+        Add a new poll:
+    </h1>
     <input
         type="text"
         bind:value={newPoll.pollName}

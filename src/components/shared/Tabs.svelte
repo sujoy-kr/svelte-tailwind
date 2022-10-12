@@ -11,7 +11,7 @@
         <li
             on:click={() => dispatch('changeTab', tab)}
             class:active={tab === activeTab}
-            class="rounded-lg inline-block w-60 text-2xl p-3 bg-rose-300 m-2 text-white tracking-wide font-semibold"
+            class="duration-100 rounded-lg inline-block w-60 text-2xl p-3 bg-rose-300 m-2 text-white tracking-wide font-semibold"
         >
             {tab}
         </li>

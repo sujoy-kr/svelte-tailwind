@@ -1,4 +1,5 @@
 <script>
+    // @ts-ignore
     import PollList from './components/PollList.svelte'
     import AddPollForm from './components/AddPollForm.svelte'
     import Tabs from './components/shared/Tabs.svelte'
@@ -15,13 +16,13 @@
             optionA: 'Woof',
             optionB: 'Woof Woof',
             voteA: 5,
-            voteB: 0,
+            voteB: 10,
         },
         {
-            id: 1,
-            pollName: "Who's the good boy?",
-            optionA: 'Woof',
-            optionB: 'Woof Woof',
+            id: 2,
+            pollName: 'Say my name?',
+            optionA: 'Heisenborger',
+            optionB: 'Explain yourself.',
             voteA: 0,
             voteB: 0,
         },
@@ -32,8 +33,6 @@
     }
 
     const handleAddPoll = (e) => {
-        console.log(e.detail)
-        polls = [e.detail, ...polls]
         activeTab = 'Current Polls'
     }
 </script>
@@ -43,7 +42,7 @@
     <div class="container text-center m-auto">
         <Tabs {tabs} {activeTab} on:changeTab={changeTab} />
         {#if activeTab === 'Current Polls'}
-            <PollList {polls} />
+            <PollList />
         {:else if activeTab === 'Add New Poll'}
             <AddPollForm on:addPoll={handleAddPoll} />
         {/if}
